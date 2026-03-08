@@ -6,7 +6,7 @@
 
 const express = require('express');
 const cors = require('cors');
-const { connectMongo, getDB } = require('../database-designer/mongodb-config');
+const { connectMongo, getDB } = require('../database-designer/mongodb-config.cjs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
