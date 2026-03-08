@@ -33,15 +33,19 @@ if ($method === 'GET' && !$id) {
     $data = getInput();
     if (empty($data['name']) || empty($data['project_key'])) respond(['error'=>'Name and key required'], 400);
     
-    $id = generateUUID();
-    $db->prepare('INSERT INTO projects (id,name,description,project_key,owner_id) VALUES (?,?,?,?,?)')
-       ->execute([$id, $data['name'], $data['description']??'', strtoupper($data['project_key']), $userId]);
-    
-    $memberId = generateUUID();
-    $db->prepare('INSERT INTO project_members (id,project_id,user_id,role) VALUES (?,?,?,?)')
-       ->execute([$memberId, $id, $userId, 'owner']);
-    
-    respond(['id'=>$id, 'message'=>'Project created'], 201);
+    try {
+        $id = generateUUID();
+        $db->prepare('INSERT INTO projects (id,name,description,project_key,owner_id) VALUES (?,?,?,?,?)')
+           ->execute([$id, $data['name'], $data['description']??'', strtoupper($data['project_key']), $userId]);
+        
+        $memberId = generateUUID();
+        $db->prepare('INSERT INTO project_members (id,project_id,user_id,role) VALUES (?,?,?,?)')
+           ->execute([$memberId, $id, $userId, 'owner']);
+        
+        respond(['id'=>$id, 'message'=>'Project created'], 201);
+    } catch (PDOException $e) {
+        respond(['error'=>'Database error: '.$e->getMessage()], 500);
+    }
 
 } elseif ($method === 'PUT' && $id) {
     $data = getInput();
