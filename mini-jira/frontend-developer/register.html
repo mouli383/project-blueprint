@@ -80,14 +80,11 @@
         }
 
         try {
-            // ── [BACKEND INTEGRATION POINT] ──────────────
-            // const response = await API.post('/api/auth/register', { name, email, password });
-            // showToast('Account created! Redirecting...', 'success');
-            // setTimeout(() => window.location.href = 'index.html', 1500);
-            // ─────────────────────────────────────────────
-
-            console.log('[Frontend] Register attempt:', { name, email });
-            showToast('Registration will be connected to backend API', 'warning');
+            const response = await API.post('/auth/register', { name, email, password });
+            localStorage.setItem('token', response.token);
+            localStorage.setItem('user', JSON.stringify(response.user));
+            showToast('Account created! Redirecting...', 'success');
+            setTimeout(() => window.location.href = 'dashboard.html', 1500);
 
         } catch (error) {
             showToast('Registration failed: ' + error.message, 'error');

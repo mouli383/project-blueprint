@@ -86,18 +86,10 @@
         const password = document.getElementById('login-password').value;
 
         try {
-            // ── [BACKEND INTEGRATION POINT] ──────────────
-            // This will be replaced with actual API call:
-            // const response = await API.post('/api/auth/login', { email, password });
-            // localStorage.setItem('token', response.token);
-            // localStorage.setItem('user', JSON.stringify(response.user));
-            // window.location.href = 'dashboard.html';
-            // ─────────────────────────────────────────────
-
-            // TEMPORARY: Simulated login for frontend testing
-            console.log('[Frontend] Login attempt:', email);
-            showToast('Login functionality will be connected to backend API', 'warning');
-
+            const response = await API.post('/auth/login', { email, password });
+            localStorage.setItem('token', response.token);
+            localStorage.setItem('user', JSON.stringify(response.user));
+            window.location.href = 'dashboard.html';
         } catch (error) {
             showToast('Login failed: ' + error.message, 'error');
         }
