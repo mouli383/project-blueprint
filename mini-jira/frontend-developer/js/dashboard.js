@@ -181,17 +181,11 @@ async function handleCreateProject(event) {
     };
 
     try {
-        // ── [BACKEND INTEGRATION POINT] ──────────────
-        // const result = await API.post('/projects', projectData);
-        // closeModal('create-project-modal');
-        // showToast('Project created!', 'success');
-        // loadSidebarProjects();
-        // ─────────────────────────────────────────────
-
-        console.log('[Dashboard] Create project:', projectData);
+        const result = await API.post('/projects', projectData);
         closeModal('create-project-modal');
-        showToast('Project created! (Backend not connected yet)', 'warning');
-
+        showToast('Project created successfully!', 'success');
+        loadSidebarProjects();
+        document.getElementById('create-project-form')?.reset();
     } catch (error) {
         showToast('Failed to create project: ' + error.message, 'error');
     }
