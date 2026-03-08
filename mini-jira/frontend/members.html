@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Jira — Members</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <nav id="sidebar" class="sidebar">
+        <div class="sidebar-header"><i class="bi bi-kanban"></i><span>Mini Jira</span><button class="btn-close-sidebar d-lg-none" onclick="toggleSidebar()"><i class="bi bi-x-lg"></i></button></div>
+        <ul class="sidebar-nav">
+            <li><a href="dashboard.html"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+            <li><a href="projects.html"><i class="bi bi-folder"></i> Projects</a></li>
+            <li><a href="board.html"><i class="bi bi-columns-gap"></i> Board</a></li>
+            <li><a href="tasks.html"><i class="bi bi-check2-square"></i> Tasks</a></li>
+            <li><a href="sprints.html"><i class="bi bi-arrow-repeat"></i> Sprints</a></li>
+            <li class="active"><a href="members.html"><i class="bi bi-people"></i> Members</a></li>
+            <li><a href="activity.html"><i class="bi bi-clock-history"></i> Activity</a></li>
+        </ul>
+        <div class="sidebar-footer"><div class="user-info" onclick="toggleUserMenu()"><div class="avatar" id="avatar-initials">?</div><span id="user-display-name">User</span><i class="bi bi-box-arrow-right ms-auto"></i></div></div>
+    </nav>
+
+    <main class="main-content">
+        <div class="top-bar d-lg-none"><button class="btn btn-link" onclick="toggleSidebar()"><i class="bi bi-list fs-4"></i></button><span class="fw-bold">Members</span></div>
+        <div class="content-area">
+            <div class="page-header d-flex justify-content-between align-items-center">
+                <div><h2><i class="bi bi-people"></i> Team Members</h2></div>
+                <button class="btn btn-primary" onclick="openModal('memberModal')"><i class="bi bi-person-plus"></i> Add Member</button>
+            </div>
+
+            <div class="row g-3" id="memberList">
+                <p class="text-muted text-center py-5">Loading members...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Member Modal -->
+    <div class="modal-overlay" id="memberModal">
+        <div class="modal-box">
+            <div class="modal-header"><h5>Add Member</h5><button onclick="closeModal('memberModal')" class="btn-close"></button></div>
+            <form onsubmit="addMember(event)">
+                <div class="mb-3"><label class="form-label">Select User</label><select class="form-select" id="memberUser" required></select></div>
+                <div class="mb-3"><label class="form-label">Role</label>
+                    <select class="form-select" id="memberRole"><option value="member">Member</option><option value="admin">Admin</option><option value="viewer">Viewer</option></select>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Add Member</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast" class="app-toast"><span id="toast-message"></span></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/members.js"></script>
+</body>
+</html>
