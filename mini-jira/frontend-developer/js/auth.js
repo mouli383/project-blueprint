@@ -26,17 +26,8 @@ function checkAuth() {
 
     // If not logged in, redirect to login
     if (!token || !user) {
-        // ── [TEMPORARY] ─────────────────────────────────
-        // For frontend testing, we'll use a mock user
-        // Remove this block when backend is connected
-        const mockUser = {
-            id: 'u1000001-aaaa-bbbb-cccc-000000000001',
-            name: 'Rahul Sharma',
-            email: 'rahul@example.com'
-        };
-        localStorage.setItem('user', JSON.stringify(mockUser));
-        localStorage.setItem('token', 'mock-token-for-frontend-testing');
-        // ─────────────────────────────────────────────────
+        window.location.href = 'index.html';
+        return;
     }
 
     // Set avatar initials
